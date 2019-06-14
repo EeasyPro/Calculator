@@ -1,5 +1,7 @@
 package com.example.calculator;
 
+import android.annotation.SuppressLint;
+import android.icu.math.BigDecimal;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,10 +23,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private double summ = 0;
     private double current = 0;
     private int foo = 0;
-    private boolean writing_number = true;
+    private boolean iswriting = true;
+    private boolean flag = true;
 
 
-    private Stack<Double> numbers = new Stack<>();
+    /*private Stack<Double> numbers = new Stack<>();*/
     private ConstraintLayout mainLayout;
 
 
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button PM = findViewById(R.id.buttonPLUSMINUS);
         Button DellLastSymbol = findViewById(R.id.buttonDellLastSymbol);
         Button BAN = findViewById(R.id.buttonDellLastNumber);
+        Button DOT = findViewById(R.id.buttonDOT);
 
         mainLayout = findViewById(R.id.mainLayout);
 
@@ -78,85 +82,73 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MUL.setOnClickListener(this);
         PM.setOnClickListener(this);
         DellLastSymbol.setOnClickListener(this);
-
-        /*final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.scale);
-        Button btnScale = (Button)findViewById(R.id.buttonDellLastNumber);
-        btnScale.setOnClickListener(new Button.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(animScale);
-                Toast toast1 = Toast.makeText(getApplicationContext(),"Включена темная тема", Toast.LENGTH_SHORT);
-                        mainLayout.setBackgroundColor(getResources().getColor(R.color.BlackTheme));
-                toast1.show();
-            }
-        });*/
-
-
+        DOT.setOnClickListener(this);
     }
 
+    public void Check()
+    {
+        String str = answer.getText().toString().trim();
+        if (str.length() != 0) {
+            str = str.substring(0, 1);
+        }
+        if(flag || ((str.equals("0"))&&(answer.length()==1)))  {
+            answer.setText("");
+            flag = false;
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View v) {
 
-        if(foo == 0){
+        if (iswriting) {
             answer.setText("");
-            foo = -1;
+            iswriting = false;
         }
 
-        if (!writing_number)
-            answer.setText("");
-        writing_number = true;
-
         switch (v.getId()) {
+            case R.id.button0:
+                Check();
+                answer.setText(answer.getText() + "0");
+                break;
             case R.id.button1:
-                if(foo == 6) foo =-1;
-                numbers.push( 1.0);
-               /* numbers.push( Double.parseDouble("233.5"));*/
+                Check();
                 answer.setText(answer.getText() + "1");
                 break;
             case R.id.button2:
-                if(foo == 6) foo =-1;
-                numbers.push( 2.0);
+                Check();
                 answer.setText(answer.getText() + "2");
                 break;
             case R.id.button3:
-                if(foo == 6) foo =-1;
-                numbers.push( 3.0);
+                Check();
                 answer.setText(answer.getText() + "3");
                 break;
             case R.id.button4:
-                if(foo == 6) foo =-1;
-                numbers.push( 4.0);
+                Check();
                 answer.setText(answer.getText() + "4");
                 break;
             case R.id.button5:
-                if(foo == 6) foo =-1;
-                numbers.push( 5.0);
+                Check();
                 answer.setText(answer.getText() + "5");
                 break;
             case R.id.button6:
-                if(foo == 6) foo =-1;
-                numbers.push( 6.0);
+                Check();
                 answer.setText(answer.getText() + "6");
                 break;
             case R.id.button7:
-                if(foo == 6) foo =-1;
-                numbers.push( 7.0);
+                Check();
                 answer.setText(answer.getText() + "7");
                 break;
             case R.id.button8:
-                if(foo == 6) foo =-1;
-                numbers.push( 8.0);
+                Check();
                 answer.setText(answer.getText() + "8");
                 break;
             case R.id.button9:
-                if(foo == 6) foo =-1;
-                numbers.push( 9.0);
+                Check();
                 answer.setText(answer.getText() + "9");
                 break;
-            case R.id.button0:
-                numbers.push( 0.0);
-                answer.setText(answer.getText() + "0");
-                break;
+
+
             case R.id.buttonPLUS:
                 somefoo(foo);
                 foo = 1;
@@ -177,66 +169,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 foo = 4;
                 editText.setText(editText.getText() + " ÷ ");
                 break;
-            case R.id.buttonDEL:
-                foo = 0;
-                editText.setText("");
-                answer.setText("0");
-                numbers.clear();
-                summ = 0;
-                mainLayout.setBackgroundColor(getResources().getColor(R.color.WhiteTheme));
-                Toast toast2 = Toast.makeText(getApplicationContext(),"Включена светлая тема", Toast.LENGTH_SHORT);
-                toast2.show();
-                break;
+
+
             case R.id.buttonEQUAL:
                 somefoo(foo);
-                foo = 6;
+                foo = 0;
+                flag = true;
                 editText.setText("");
+                iswriting = false;
+                break;
+            case R.id.buttonDEL:
+                foo = 0;
+                summ = 0;
+                iswriting = true;
+                editText.setText("");
+                answer.setText("0");
                 break;
             case R.id.buttonPLUSMINUS:
                 somefoo(5);
                 break;
             case R.id.buttonDellLastSymbol:
-                if(numbers.size()!=0) {
-                    numbers.pop();
                     String str = answer.getText().toString();
                     if (str.length() != 0) {
                         str = str.substring(0, str.length() - 1);
                         answer.setText(str);
                     }
-                }
-                if(numbers.size() == 0) {
-                    foo = 0;
-                    current = 0;
+                if(answer.length() == 0) {
                     answer.setText("0");
                 }
                 break;
-            case R.id.buttonDellLastNumber:
-                if(numbers.size()!=0) {
-                    numbers.clear();
-                    answer.setText("");
-                }
-                if(numbers.size() == 0) {
-                    foo = 0;
-                    current = 0;
-                    answer.setText("0");
-                }
-                break;
-        }
-    }
 
-    private void ConvertToNumber(Stack<Double>numbers) {
-        int a = 0;
-        current = 0;
-        while(!numbers.empty()) {
-            current += numbers.pop() * Math.pow(10, a);
-            a++;
+            case R.id.buttonDellLastNumber:
+                    answer.setText("0");
+                break;
+
+            case R.id.buttonDOT:
+                answer.setText(answer.getText() + ".");
+                break;
+
         }
     }
 
     private void Print(double summ, double current)
     {
-
-
         if(summ == (int)summ)
             answer.setText(String.valueOf((int)summ));
         else answer.setText("" + summ);
@@ -244,18 +219,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(current == (int)current)
             editText.setText(editText.getText() + "" +(int)current);
         else editText.setText(editText.getText() + "" + current);
+
+        iswriting = true;
     }
 
     private void somefoo(int foo)
     {
-        writing_number = false;
+        /*if(answer.getText().toString().equals(""))
+            answer.setText("0");*/
 
-        if(numbers.size() != 0)
-        ConvertToNumber(numbers);
+        try {current = Double.parseDouble(answer.getText().toString());}
+        catch (Exception e){
+            answer.setText("0");
+            Toast toast3 = Toast.makeText(getApplicationContext(),"Сработало исключение",Toast.LENGTH_SHORT);
+            toast3.show();
+        }
+
+        /*current = Double.parseDouble(answer.getText().toString());*/
 
         switch (foo) {
-            case 0://delete
-                //Происходит очистка суммы
+            case 0:
+                summ = current;
                 Print(summ, current);
                 break;
             case 1://plus
@@ -266,11 +250,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 summ -= current;
                 Print(summ, current);
                 break;
-            case 3://umnojenie
+            case 3://multiple
                 summ *= current;
                 Print(summ, current);
                 break;
-            case 4://delenie
+            case 4://div
                 summ /= current;
                 Print(summ, current);
                 break;
@@ -280,13 +264,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     answer.setText("" + (int)current);
                 else answer.setText("" + current);
                 break;
-            case 6://equal
-                current = summ;
-                Print(summ, current);
-                break;
             default:
                 summ+=current;
-                Print(summ, current);
                 break;
         }
     }
