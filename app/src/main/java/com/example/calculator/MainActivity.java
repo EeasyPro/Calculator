@@ -1,7 +1,9 @@
 package com.example.calculator;
 
 import android.annotation.SuppressLint;
-import android.icu.math.BigDecimal;
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -20,22 +24,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView editText;
     TextView answer;
 
-    private double summ = 0;
-    private double current = 0;
+    private BigDecimal summ = BigDecimal.valueOf(0);
+    private BigDecimal current = BigDecimal.valueOf(0);
+
     private int foo = 0;
     private boolean iswriting = true;
     private boolean flag = true;
+    private boolean dotChecker = false;
 
 
     /*private Stack<Double> numbers = new Stack<>();*/
     private ConstraintLayout mainLayout;
 
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         editText = findViewById(R.id.editText);
         answer = findViewById(R.id.answer);
@@ -180,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.buttonDEL:
                 foo = 0;
-                summ = 0;
+                summ = BigDecimal.valueOf(0);
                 iswriting = true;
                 editText.setText("");
                 answer.setText("0");
@@ -204,21 +212,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.buttonDOT:
-                answer.setText(answer.getText() + ".");
+                if(!dotChecker) {
+                    dotChecker = true;
+                    answer.setText(answer.getText() + ".");
+                }
                 break;
 
         }
     }
 
-    private void Print(double summ, double current)
+    @SuppressLint("SetTextI18n")
+    private void Print(BigDecimal summ, BigDecimal current)
     {
-        if(summ == (int)summ)
-            answer.setText(String.valueOf((int)summ));
-        else answer.setText("" + summ);
+        if(summ.doubleValue() == summ.intValue())
+            answer.setText(String.valueOf(summ.intValue()));
+        else answer.setText(String.valueOf(summ));
 
-        if(current == (int)current)
-            editText.setText(editText.getText() + "" +(int)current);
-        else editText.setText(editText.getText() + "" + current);
+        if(current.doubleValue() == current.intValue())
+            editText.setText(editText.getText() + String.valueOf(current.intValue()));
+        else editText.setText(editText.getText() + String.valueOf(current));
 
         iswriting = true;
     }
@@ -228,14 +240,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /*if(answer.getText().toString().equals(""))
             answer.setText("0");*/
 
-        try {current = Double.parseDouble(answer.getText().toString());}
+        dotChecker = false;
+
+        try {
+            current = BigDecimal.valueOf(Double.parseDouble(answer.getText().toString()));}
         catch (Exception e){
             answer.setText("0");
+            current = BigDecimal.valueOf(Double.parseDouble(answer.getText().toString()));
             Toast toast3 = Toast.makeText(getApplicationContext(),"Сработало исключение",Toast.LENGTH_SHORT);
             toast3.show();
         }
-
-        /*current = Double.parseDouble(answer.getText().toString());*/
 
         switch (foo) {
             case 0:
@@ -243,29 +257,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Print(summ, current);
                 break;
             case 1://plus
-                summ += current;
+                summ = summ.add(current);
                 Print(summ, current);
                 break;
             case 2://minus
-                summ -= current;
+                summ = summ.subtract(current);
                 Print(summ, current);
                 break;
             case 3://multiple
-                summ *= current;
+                summ = summ.multiply(current);
                 Print(summ, current);
                 break;
             case 4://div
-                summ /= current;
+                summ = (summ.divide(current, 10, BigDecimal.ROUND_FLOOR));
                 Print(summ, current);
                 break;
             case 5://plus/minus
-                current *= -1;
-                if(current == (int)current)
-                    answer.setText("" + (int)current);
-                else answer.setText("" + current);
+                current = current.multiply(BigDecimal.valueOf(-1));
+                if(current.doubleValue() == current.intValue())
+                    answer.setText(String.valueOf(current.intValue()));
+                else answer.setText(String.valueOf(current));
                 break;
             default:
-                summ+=current;
+                summ = summ.add(current);
                 break;
         }
     }
