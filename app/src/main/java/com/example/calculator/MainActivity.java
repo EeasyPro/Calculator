@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     /*private Stack<Double> numbers = new Stack<>();*/
-    private ConstraintLayout mainLayout;
+    private LinearLayout mainLayout;
 
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
