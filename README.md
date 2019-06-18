@@ -3,6 +3,7 @@
 
 
 # **Icon of app**
+-----------------------------------
 ><a href="url"><img src="https://user-images.githubusercontent.com/45872071/59557083-cfebcd80-8fe9-11e9-84b8-3519971f25b3.png" width="256" ></a>
 
 
