@@ -3,26 +3,17 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary1</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark1</item>
         <item name="colorAccent">#FDD7CB</item>
         <item name="colorControlHighlight">#C8E8FE</item>
-        <item name="android:button">@style/mybuttonstyle</item>
+
     </style>
 
 
-    <style name="mybuttonstyle" parent="@android:style/Widget.Button">
-        <item name="android:gravity">center_vertical|center_horizontal</item>
-        <item name="android:textColor">#CAECFF</item>
-        <item name="android:shadowColor">#FF000000</item>
-        <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">-1</item>
-        <item name="android:shadowRadius">0.2</item>
-        <item name="android:textSize">16dip</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:background">#FF8A65</item>
-        <item name="android:radius">10dp</item>
-        <item name="android:padding">5dp</item>
+    <style name="MyRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#C5E1A5</item>
+        <item name="colorControlActivated">#A5D6A7</item>
     </style>
 
 </resources>

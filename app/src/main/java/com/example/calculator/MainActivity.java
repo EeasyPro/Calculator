@@ -2,31 +2,44 @@ package com.example.calculator;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.Collections;
 
-import static com.example.calculator.R.drawable.*;
-import static com.example.calculator.R.id.*;
-import static com.example.calculator.R.id.color_btn;
+import static com.example.calculator.R.id.button0;
+import static com.example.calculator.R.id.button1;
+import static com.example.calculator.R.id.button2;
+import static com.example.calculator.R.id.button3;
+import static com.example.calculator.R.id.button4;
+import static com.example.calculator.R.id.button5;
+import static com.example.calculator.R.id.button6;
+import static com.example.calculator.R.id.button7;
+import static com.example.calculator.R.id.button8;
+import static com.example.calculator.R.id.button9;
+import static com.example.calculator.R.id.buttonDEL;
+import static com.example.calculator.R.id.buttonDIV;
+import static com.example.calculator.R.id.buttonDOT;
+import static com.example.calculator.R.id.buttonDellLastNumber;
+import static com.example.calculator.R.id.buttonDellLastSymbol;
+import static com.example.calculator.R.id.buttonEQUAL;
+import static com.example.calculator.R.id.buttonMINUS;
+import static com.example.calculator.R.id.buttonMUL;
+import static com.example.calculator.R.id.buttonPLUS;
+import static com.example.calculator.R.id.buttonPLUSMINUS;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
 
     TextView editText;
     TextView answer;
@@ -35,14 +48,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private BigDecimal current = BigDecimal.valueOf(0);
 
     private int foo = 0;
+    private int n = 10;
     private boolean iswriting = true;
     private boolean flag = true;
     private boolean dotChecker = false;
 
+    private ArrayList<Button> buttons_numb = new ArrayList<>();
+    private ArrayList<Button> buttons_foo = new ArrayList<>();
 
-    /*private Stack<Double> numbers = new Stack<>();*/
     private LinearLayout mainLayout;
-
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -50,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       /* Objects.requireNonNull(getSupportActionBar()).hide();*/
 
         editText = findViewById(R.id.editText);
         answer = findViewById(R.id.answer);
@@ -74,78 +87,75 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button MUL = findViewById(buttonMUL);
         final Button PM = findViewById(buttonPLUSMINUS);
         final Button DellLastSymbol = findViewById(buttonDellLastSymbol);
-        final Button BAN = findViewById(buttonDellLastNumber);
+        final Button CE = findViewById(buttonDellLastNumber);
         final Button DOT = findViewById(buttonDOT);
-        final Button color_btn = findViewById(R.id.color_btn);
+        final Button SQRT = findViewById(R.id.sqrt);
+        final Button POW = findViewById(R.id.pow);
+        final Button FACT = findViewById(R.id.fact);
 
         mainLayout = findViewById(R.id.mainLayout);
 
+        final ImageButton color_btn = findViewById(R.id.color_btn);
 
-        ZERO.setOnClickListener(this);
-        ONE.setOnClickListener(this);
-        TWO.setOnClickListener(this);
-        THREE.setOnClickListener(this);
-        FOUR.setOnClickListener(this);
-        FIVE.setOnClickListener(this);
-        SIX.setOnClickListener(this);
-        SEVEN.setOnClickListener(this);
-        EIGHT.setOnClickListener(this);
-        NINE.setOnClickListener(this);
+        Collections.addAll(buttons_numb, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE);
+        Collections.addAll(buttons_foo, EQUAL, PLUS, MINUS, DEL, CE, DIV, MUL, PM, DellLastSymbol, DOT, SQRT, POW, FACT);
 
-        EQUAL.setOnClickListener(this);
-        PLUS.setOnClickListener(this);
-        MINUS.setOnClickListener(this);
-        DEL.setOnClickListener(this);
-        BAN.setOnClickListener(this);
-        DIV.setOnClickListener(this);
-        MUL.setOnClickListener(this);
-        PM.setOnClickListener(this);
-        DellLastSymbol.setOnClickListener(this);
-        DOT.setOnClickListener(this);
+        for (Button button : buttons_numb)
+            button.setOnClickListener(this);
+
+        for (Button button : buttons_foo)
+            button.setOnClickListener(this);
+
         color_btn.setOnClickListener(this);
 
         color_btn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary2));
-                ZERO.setBackground(getDrawable(button_standart));
-                ONE.setBackground(getDrawable(button_standart));
-                TWO.setBackground(getDrawable(button_standart));
-                THREE.setBackground(getDrawable(button_standart));
-                FOUR.setBackground(getDrawable(button_standart));
-                FIVE.setBackground(getDrawable(button_standart));
-                SIX.setBackground(getDrawable(button_standart));
-                SEVEN.setBackground(getDrawable(button_standart));
-                EIGHT.setBackground(getDrawable(button_standart));
-                NINE.setBackground(getDrawable(button_standart));
-                PM.setBackground(getDrawable(button_standart));
-                DOT.setBackground(getDrawable(button_standart));
-
-                color_btn.setBackground(getDrawable(button_numbers));
-                EQUAL.setBackground(getDrawable(button_numbers));
-                PLUS.setBackground(getDrawable(button_numbers));
-                MINUS.setBackground(getDrawable(button_numbers));
-                DEL.setBackground(getDrawable(button_numbers));
-                DIV.setBackground(getDrawable(button_numbers));
-                BAN.setBackground(getDrawable(button_numbers));
-                MUL.setBackground(getDrawable(button_numbers));
-                DellLastSymbol.setBackground(getDrawable(button_numbers));
-
-
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
-
     }
 
-    public void Check()
-    {
+    @SuppressLint("ResourceAsColor")
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {
+            return;
+        }
+        int color = data.getIntExtra("color", 0);
+        switch (color) {
+            case 1:
+                mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary1));
+                for (Button button : buttons_numb)
+                    button.setBackground(getDrawable(R.drawable.button_numbers1));
+                for (Button button : buttons_foo)
+                    button.setBackground(getDrawable(R.drawable.button_foo1));
+                break;
+            case 2:
+                mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary2));
+                for (Button button : buttons_numb)
+                    button.setBackground(getDrawable(R.drawable.button_numbers2));
+                for (Button button : buttons_foo)
+                    button.setBackground(getDrawable(R.drawable.button_foo2));
+                break;
+            case 3:
+                mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary3));
+                for (Button button : buttons_numb)
+                    button.setBackground(getDrawable(R.drawable.button_numbers3));
+                for (Button button : buttons_foo)
+                    button.setBackground(getDrawable(R.drawable.button_foo3));
+                break;
+        }
+    }
+
+    public void Check() {
+
         String str = answer.getText().toString().trim();
         if (str.length() != 0) {
             str = str.substring(0, 1);
         }
-        if(flag || ((str.equals("0"))&&(answer.length()==1)))  {
+        if (flag || ((str.equals("0")) && (answer.length() == 1))) {
             answer.setText("");
             flag = false;
         }
@@ -160,49 +170,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             iswriting = false;
         }
 
+        for (Button button : buttons_numb) {
+            if (v == button) {
+                Check();
+                answer.setText(answer.getText() + button.getText().toString());
+            }
+        }
+
         switch (v.getId()) {
-            case button0:
-                Check();
-                answer.setText(answer.getText() + "0");
-                break;
-            case button1:
-                Check();
-                answer.setText(answer.getText() + "1");
-                break;
-            case button2:
-                Check();
-                answer.setText(answer.getText() + "2");
-                break;
-            case button3:
-                Check();
-                answer.setText(answer.getText() + "3");
-                break;
-            case button4:
-                Check();
-                answer.setText(answer.getText() + "4");
-                break;
-            case button5:
-                Check();
-                answer.setText(answer.getText() + "5");
-                break;
-            case button6:
-                Check();
-                answer.setText(answer.getText() + "6");
-                break;
-            case button7:
-                Check();
-                answer.setText(answer.getText() + "7");
-                break;
-            case button8:
-                Check();
-                answer.setText(answer.getText() + "8");
-                break;
-            case button9:
-                Check();
-                answer.setText(answer.getText() + "9");
-                break;
-
-
             case buttonPLUS:
                 somefoo(foo);
                 foo = 1;
@@ -224,7 +199,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 editText.setText(editText.getText() + " ÷ ");
                 break;
 
-
             case buttonEQUAL:
                 somefoo(foo);
                 foo = 0;
@@ -243,60 +217,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 somefoo(5);
                 break;
             case buttonDellLastSymbol:
-                    String str = answer.getText().toString();
-                    if (str.length() != 0) {
-                        str = str.substring(0, str.length() - 1);
-                        answer.setText(str);
-                    }
-                if(answer.length() == 0) {
+                String str = answer.getText().toString();
+                if (str.length() != 0) {
+                    str = str.substring(0, str.length() - 1);
+                    answer.setText(str);
+                }
+                if (answer.length() == 0) {
                     answer.setText("0");
                 }
                 break;
 
             case buttonDellLastNumber:
-                    answer.setText("0");
+                answer.setText("0");
                 break;
 
             case buttonDOT:
-                if(!dotChecker) {
+                if (!dotChecker) {
                     dotChecker = true;
                     answer.setText(answer.getText() + ".");
                 }
                 break;
 
+            case R.id.sqrt:
+                somefoo(6);
+                break;
+
+            case R.id.pow:
+                somefoo(foo);
+                foo = 7;
+                editText.setText(editText.getText() + "^");
+                break;
+
+            case R.id.fact:
+                somefoo(8);
+                break;
         }
     }
 
     @SuppressLint("SetTextI18n")
-    private void Print(BigDecimal summ, BigDecimal current)
-    {
-        if(summ.doubleValue() == summ.intValue())
+    private void Print(BigDecimal summ, BigDecimal current) {
+        if (summ.doubleValue() == summ.intValue())
             answer.setText(String.valueOf(summ.intValue()));
         else answer.setText(String.valueOf(summ));
 
-        if(current.doubleValue() == current.intValue())
+        if (current.doubleValue() == current.intValue())
             editText.setText(editText.getText() + String.valueOf(current.intValue()));
         else editText.setText(editText.getText() + String.valueOf(current));
 
         iswriting = true;
     }
 
-    private void somefoo(int foo)
-    {
-        /*if(answer.getText().toString().equals(""))
-            answer.setText("0");*/
+    public static BigDecimal sqrt(BigDecimal value) {
+        BigDecimal x = new BigDecimal(Math.sqrt(value.doubleValue()));
+        return x.add(new BigDecimal(value.subtract(x.multiply(x)).doubleValue() / (x.doubleValue() * 2.0)));
+    }
 
+    private void somefoo(int foo) {
         dotChecker = false;
 
         try {
-            current = BigDecimal.valueOf(Double.parseDouble(answer.getText().toString()));}
-        catch (Exception e){
+            current = BigDecimal.valueOf(Double.parseDouble(answer.getText().toString()));
+        } catch (Exception e) {
             answer.setText("0");
             current = BigDecimal.valueOf(Double.parseDouble(answer.getText().toString()));
-            Toast toast3 = Toast.makeText(getApplicationContext(),"Сработало исключение",Toast.LENGTH_SHORT);
+            Toast toast3 = Toast.makeText(getApplicationContext(), "Сработало исключение", Toast.LENGTH_SHORT);
             toast3.show();
         }
-
 
 
         switch (foo) {
@@ -317,17 +303,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Print(summ, current);
                 break;
             case 4://div
-                try{
-                summ = (summ.divide(current, 10, BigDecimal.ROUND_FLOOR));}
-                catch(Exception e) {
-                    Toast toast4 = Toast.makeText(getApplicationContext(),"Где-то поперхнулась одна \nЛобова Елена Алексеевна",Toast.LENGTH_SHORT);
+                try {
+                    summ = (summ.divide(current, n, BigDecimal.ROUND_FLOOR));
+                } catch (Exception e) {
+                    Toast toast4 = Toast.makeText(getApplicationContext(), "Где-то поперхнулась одна \nЕлена Алексеевна", Toast.LENGTH_SHORT);
                     toast4.show();
                 }
                 Print(summ, current);
                 break;
-            case 5://plus/minus
+            case 5://plus-minus
                 current = current.multiply(BigDecimal.valueOf(-1));
-                if(current.doubleValue() == current.intValue())
+                if (current.doubleValue() == current.intValue())
+                    answer.setText(String.valueOf(current.intValue()));
+                else answer.setText(String.valueOf(current));
+                break;
+            case 6://sqrt
+                current = (sqrt(current)).setScale(n, BigDecimal.ROUND_FLOOR);
+                if (current.doubleValue() == current.intValue())
+                    answer.setText(String.valueOf(current.intValue()));
+                else answer.setText(String.valueOf(current));
+                break;
+            case 7://pow
+                summ = summ.pow(current.intValue());
+                Print(summ, current);
+                break;
+            case 8://fact
+                BigDecimal pep = BigDecimal.valueOf(1);
+                int pip = current.intValue();
+                for (int i = 1; i <= pip; i++)
+                    pep = pep.multiply(BigDecimal.valueOf(i));
+
+                current = pep;
+                if (current.doubleValue() == current.intValue())
                     answer.setText(String.valueOf(current.intValue()));
                 else answer.setText(String.valueOf(current));
                 break;
@@ -336,5 +343,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
 }
