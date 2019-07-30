@@ -5,364 +5,390 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary1"
+    android:background="@color/colorPrimary"
     android:gravity="bottom"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <android.support.constraint.ConstraintLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+    </LinearLayout>
 
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="2"
+        android:background="@drawable/inset"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints,Suspicious0dp"
+        tools:layout_editor_absoluteX="16dp">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <TextView
+            android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/inset"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textColor="@android:color/background_dark"
+            app:autoSizeMaxTextSize="48dp"
+            app:autoSizeMinTextSize="12dp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform" />
 
-            <TextView
-                android:id="@+id/editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:ems="10"
-                android:gravity="right"
-                android:inputType="textPersonName"
-                android:textColor="@android:color/background_dark"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/answer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="right"
-                android:inputType="textPersonName"
-                android:text="0"
-                android:textColor="#303031"
-                android:textSize="36sp" />
+        <TextView
+            android:id="@+id/answer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="0"
+            android:textColor="#303031"
+            app:autoSizeMaxTextSize="48dp"
+            app:autoSizeMinTextSize="12dp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform" />
 
 
-        </LinearLayout>
-
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="7"
         android:orientation="vertical"
         android:padding="16dp">
 
         <LinearLayout
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/buttonDellLastNumber"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
+                android:background="@drawable/button_foo"
                 android:text="CE"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/buttonDEL"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
+                android:background="@drawable/button_foo"
                 android:text="C"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/buttonDellLastSymbol"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
+                android:background="@drawable/button_foo"
                 android:text="⌫"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/buttonEQUAL"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
+                android:background="@drawable/button_foo"
                 android:text="="
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/buttonPLUS"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
+                android:background="@drawable/button_foo"
                 android:text="+"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/buttonMINUS"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
+                android:background="@drawable/button_foo"
                 android:text="−"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/buttonMUL"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
+                android:background="@drawable/button_foo"
                 android:text="×"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/buttonDIV"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
+                android:background="@drawable/button_foo"
                 android:text="÷"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button7"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_numbers"
                 android:text="7"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/button8"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_numbers"
                 android:text="8"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/button9"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_numbers"
                 android:text="9"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/sqrt"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
+                android:background="@drawable/button_foo"
                 android:text="√"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_numbers"
                 android:text="4"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_numbers"
                 android:text="5"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/button6"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_numbers"
                 android:text="6"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/pow"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
-                android:text="pow"
-                android:textColor="#303030"
-                android:textSize="32sp" />
+                android:background="@drawable/button_foo"
+                android:src="@drawable/ic_iconfinder_icon"
+                android:textColor="#303030" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_numbers"
                 android:text="1"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_numbers"
                 android:text="2"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/button3"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_numbers"
                 android:text="3"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/fact"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
-                android:text="n!"
-                android:textColor="#303030"
-                android:textSize="32sp" />
+                android:background="@drawable/button_foo"
+                android:src="@drawable/ic_fact"
+                android:textColor="#303030" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/buttonDOT"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_foo"
                 android:text=","
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/button0"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_numbers"
                 android:text="0"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <Button
                 android:id="@+id/buttonPLUSMINUS"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_numbers1"
+                android:background="@drawable/button_foo"
                 android:text="±"
                 android:textColor="#303030"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
             <ImageButton
                 android:id="@+id/color_btn"
@@ -370,10 +396,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo1"
+                android:background="@drawable/button_foo"
                 android:gravity="center_horizontal"
                 android:padding="2dp"
                 android:scaleType="centerCrop"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_settings2"

@@ -3,14 +3,20 @@ package com.example.calculator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +44,7 @@ import static com.example.calculator.R.id.buttonMINUS;
 import static com.example.calculator.R.id.buttonMUL;
 import static com.example.calculator.R.id.buttonPLUS;
 import static com.example.calculator.R.id.buttonPLUSMINUS;
+import static com.example.calculator.R.id.fact;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,8 +62,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ArrayList<Button> buttons_numb = new ArrayList<>();
     private ArrayList<Button> buttons_foo = new ArrayList<>();
+    private ArrayList<ImageButton> buttons_foo2 = new ArrayList<>();
+
+
 
     private LinearLayout mainLayout;
+
+    private ImageButton color_btn;
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -67,6 +79,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         editText = findViewById(R.id.editText);
         answer = findViewById(R.id.answer);
+
+        editText.setMaxLines(1);
+        answer.setMaxLines(1);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         final Button ZERO = findViewById(button0);
         final Button ONE = findViewById(button1);
@@ -90,15 +107,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button CE = findViewById(buttonDellLastNumber);
         final Button DOT = findViewById(buttonDOT);
         final Button SQRT = findViewById(R.id.sqrt);
-        final Button POW = findViewById(R.id.pow);
-        final Button FACT = findViewById(R.id.fact);
+        final ImageButton POW = findViewById(R.id.pow);
+        final ImageButton FACT = findViewById(R.id.fact);
+
 
         mainLayout = findViewById(R.id.mainLayout);
 
-        final ImageButton color_btn = findViewById(R.id.color_btn);
+        color_btn = findViewById(R.id.color_btn);
 
         Collections.addAll(buttons_numb, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE);
-        Collections.addAll(buttons_foo, EQUAL, PLUS, MINUS, DEL, CE, DIV, MUL, PM, DellLastSymbol, DOT, SQRT, POW, FACT);
+        Collections.addAll(buttons_foo, EQUAL, PLUS, MINUS, DEL, CE, DIV, MUL, PM, DellLastSymbol, DOT, SQRT);
+        Collections.addAll(buttons_foo2, POW, FACT, color_btn);
 
         for (Button button : buttons_numb)
             button.setOnClickListener(this);
@@ -106,7 +125,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (Button button : buttons_foo)
             button.setOnClickListener(this);
 
-        color_btn.setOnClickListener(this);
+        for (ImageButton button : buttons_foo2)
+            button.setOnClickListener(this);
 
         color_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,26 +144,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         int color = data.getIntExtra("color", 0);
+        Window window = this.getWindow();
         switch (color) {
+            case 0:
+                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                for (Button button : buttons_numb)
+                    button.setBackground(getDrawable(R.drawable.button_numbers));
+                for (Button button : buttons_foo)
+                    button.setBackground(getDrawable(R.drawable.button_foo));
+                for (ImageButton button : buttons_foo2)
+                    button.setBackground(getDrawable(R.drawable.button_foo));
+                break;
+
             case 1:
+                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark1));
                 mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary1));
                 for (Button button : buttons_numb)
                     button.setBackground(getDrawable(R.drawable.button_numbers1));
                 for (Button button : buttons_foo)
                     button.setBackground(getDrawable(R.drawable.button_foo1));
+                for (ImageButton button : buttons_foo2)
+                    button.setBackground(getDrawable(R.drawable.button_foo1));
                 break;
             case 2:
+                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark2));
                 mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary2));
                 for (Button button : buttons_numb)
                     button.setBackground(getDrawable(R.drawable.button_numbers2));
                 for (Button button : buttons_foo)
                     button.setBackground(getDrawable(R.drawable.button_foo2));
+                for (ImageButton button : buttons_foo2)
+                    button.setBackground(getDrawable(R.drawable.button_foo2));
                 break;
             case 3:
+                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark3));
                 mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary3));
                 for (Button button : buttons_numb)
                     button.setBackground(getDrawable(R.drawable.button_numbers3));
                 for (Button button : buttons_foo)
+                    button.setBackground(getDrawable(R.drawable.button_foo3));
+                for (ImageButton button : buttons_foo2)
                     button.setBackground(getDrawable(R.drawable.button_foo3));
                 break;
         }
@@ -151,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void Check() {
 
-        String str = answer.getText().toString().trim();
+        String str = answer.getText().toString();
         if (str.length() != 0) {
             str = str.substring(0, 1);
         }

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="DarkBackground">#797979</color>
+    <color name="DarkBorder">#242424</color>
+
+    <color name="colorPrimary">#353535</color>
+    <color name="colorPrimaryDark">#2E2E2E</color>
+    <color name="NumbersTheme">#C4C4C4</color>
+    <color name="WhiteTheme">#FFFFFF</color>
+    <color name="FooTheme">#FF8400</color>
+
     <color name="colorPrimary1">#90CAF9</color>
     <color name="colorPrimaryDark1">#8BC8F8</color>
     <color name="NumbersTheme1">#AED581</color>
@@ -7,7 +16,7 @@
     <color name="FooTheme1">#FFB74D</color>
 
     <color name="colorPrimary2">#81C3F1</color>
-    <color name="colorPrimaryDark2">#8DC9F7</color>
+    <color name="colorPrimaryDark2">#232733</color>
     <color name="NumbersTheme2">#7DDCEB</color>
     <color name="WhiteTheme2">#BADCF9</color>
     <color name="FooTheme2">#EA9A9A</color>
