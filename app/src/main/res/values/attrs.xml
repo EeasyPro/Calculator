@@ -3,9 +3,11 @@
     <declare-styleable name="ds">
         <attr name="bacgroundcolor" format="color" />
         <attr name="fooTheme" format="color" />
+        <attr name="fooThemeSecond" format="color" />
         <attr name="textcolor" format="color" />
         <attr name="cardviewcolor" format="color" />
         <attr name="tintcolor" format="color" />
         <attr name="numbersTheme" format="color" />
+        <attr name="numbersThemeSecond" format="color" />
     </declare-styleable>
 </resources>

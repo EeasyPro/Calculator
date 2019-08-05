@@ -3,13 +3,15 @@
      <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#353535</item>
         <item name="colorPrimaryDark">#3D3D3D</item>
-        <item name="colorAccent">#C4C4C4</item>
+        <item name="colorAccent">#A2A2A2</item>
         <item name="bacgroundcolor">#303030</item>
         <item name="fooTheme">#FFB74D</item>
+        <item name="fooThemeSecond">#B8843A</item>
         <item name="textcolor">#ffffff</item>
         <item name="cardviewcolor">#424242</item>
          <item name="tintcolor">#ffffff</item>
          <item name="numbersTheme">#C2C2C3</item>
+         <item name="numbersThemeSecond">#969696</item>
          <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
@@ -19,10 +21,12 @@
         <item name="colorAccent">#3A2727</item>
         <item name="bacgroundcolor">#419C92</item>
         <item name="fooTheme">#FFB74D</item>
+        <item name="fooThemeSecond">#BB883A</item>
         <item name="textcolor">#1B1B1B</item>
         <item name="cardviewcolor">#ffffff</item>
         <item name="tintcolor">#000000</item>
-        <item name="numbersTheme">#FDFDFE</item>
+        <item name="numbersTheme">#C2C2C3</item>
+        <item name="numbersThemeSecond">#959597</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
@@ -32,10 +36,12 @@
         <item name="colorAccent">#3A2727</item>
         <item name="bacgroundcolor">#4a6572</item>
         <item name="fooTheme">#f9aa33</item>
+        <item name="fooThemeSecond">#B97D25</item>
         <item name="textcolor">#1B1B1B</item>
         <item name="cardviewcolor">#4a6572</item>
         <item name="tintcolor">#000000</item>
         <item name="numbersTheme">#C2C2C3</item>
+        <item name="numbersThemeSecond">#969696</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
