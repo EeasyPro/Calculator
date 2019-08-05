@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ds">
+        <attr name="bacgroundcolor" format="color" />
+        <attr name="fooTheme" format="color" />
+        <attr name="textcolor" format="color" />
+        <attr name="cardviewcolor" format="color" />
+        <attr name="tintcolor" format="color" />
+        <attr name="numbersTheme" format="color" />
+    </declare-styleable>
+</resources>

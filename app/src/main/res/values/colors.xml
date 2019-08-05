@@ -2,12 +2,15 @@
 <resources>
     <color name="DarkBackground">#797979</color>
     <color name="DarkBorder">#242424</color>
+    <color name="LightColor">#FFFFFF</color>
+    <color name="DarkColor">#303030</color>
+    <color name="Color">#f9aa33</color>
 
     <color name="colorPrimary">#353535</color>
     <color name="colorPrimaryDark">#2E2E2E</color>
-    <color name="NumbersTheme">#C4C4C4</color>
-    <color name="WhiteTheme">#FFFFFF</color>
-    <color name="FooTheme">#FF8400</color>
+    <!--<color name="numbersTheme">#C4C4C4</color>-->
+    <color name="whiteTheme">#FFFFFF</color>
+    <!--<color name="fooTheme">#FF8400</color>-->
 
     <color name="colorPrimary1">#90CAF9</color>
     <color name="colorPrimaryDark1">#8BC8F8</color>
