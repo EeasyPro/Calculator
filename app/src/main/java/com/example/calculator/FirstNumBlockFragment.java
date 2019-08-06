@@ -3,7 +3,9 @@ package com.example.calculator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 
 public class FirstNumBlockFragment extends Fragment implements View.OnClickListener {
@@ -51,6 +54,7 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,7 +88,9 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
         final Button PERCENT = view.findViewById(R.id.percent);
 
         loadText();
-        n = Integer.valueOf(sPref.getString(SAVED_TEXT2,""));
+        try {
+            n = Integer.valueOf(Objects.requireNonNull(sPref.getString(SAVED_TEXT2, "")));}
+        catch (Exception e){n = 10;}
 
 
 

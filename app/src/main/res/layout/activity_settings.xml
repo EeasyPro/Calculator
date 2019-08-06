@@ -5,7 +5,6 @@
     android:id="@+id/settingsLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="top"
     android:background="?attr/bacgroundcolor"
     android:orientation="vertical"
     tools:context=".SettingsActivity">
@@ -17,7 +16,10 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme">
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,192 +55,218 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="top"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp">
-
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginTop="8dp"
-            app:cardBackgroundColor="?attr/cardviewcolor">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Темы"
-                    android:textColor="?attr/textcolorthree"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center">
-
-                    <RadioButton
-                        android:id="@+id/radioButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/radio_btn_dark"
-                        android:checked="true"
-                        android:text="Темная тема"
-                        android:textColor="@color/whiteTheme"
-                        android:textSize="18dp" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/radio_btn_light"
-                        android:text="Светлая тема"
-                        android:textColor="@color/DarkColor"
-                        android:textSize="18dp" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/radio_btn_color"
-                        android:text="Цветная тема"
-                        android:textColor="@color/DarkColor"
-                        android:textSize="18dp" />
-
-                </RadioGroup>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:cardBackgroundColor="?attr/cardviewcolor">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Количество знаков после запятой:"
-                        android:textColor="?attr/textcolorthree"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/numbersSizeValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="10"
-                        android:textColor="?attr/textcolorthree"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <SeekBar
-                    android:id="@+id/numbersSize"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:layout_weight="1"
-                    android:min="0"
-                    android:max="18"
-                    android:progress="10"/>
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:cardBackgroundColor="?attr/cardviewcolor">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Режим калькулятора"
-                    android:textStyle="bold"
-                    android:textColor="?attr/textcolorthree"
-                    android:textSize="16dp"/>
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <RadioButton
-                        android:id="@+id/calculatorMode1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/radio_btn_dark"
-                        android:checked="true"
-                        android:text="Обычный"
-                        android:textColor="?attr/textcolortwo"
-                        android:textSize="18dp" />
-
-                    <RadioButton
-                        android:id="@+id/calculatorMode2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/radio_btn_dark"
-                        android:text="Инженерный"
-                        android:textColor="?attr/textcolortwo"
-                        android:textSize="18dp" />
-
-                    <RadioButton
-                        android:id="@+id/calculatorMode3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/radio_btn_dark"
-                        android:text="Программист"
-                        android:textColor="?attr/textcolortwo"
-                        android:textSize="18dp" />
-                </RadioGroup>
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp">
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="?attr/cardviewcolor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Темы"
+                        android:textColor="?attr/textcolorthree"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center">
+
+                        <RadioButton
+                            android:id="@+id/radioButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_btn_dark"
+                            android:checked="true"
+                            android:text="Темная тема"
+                            android:textColor="@color/whiteTheme"
+                            android:textSize="18dp" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_btn_light"
+                            android:text="Светлая тема"
+                            android:textColor="@color/DarkColor"
+                            android:textSize="18dp" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_btn_color"
+                            android:text="Цветная тема"
+                            android:textColor="@color/DarkColor"
+                            android:textSize="18dp" />
+
+                    </RadioGroup>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="?attr/cardviewcolor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Количество знаков после запятой:"
+                            android:textColor="?attr/textcolorthree"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/numbersSizeValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:text="10"
+                            android:textColor="?attr/textcolorthree"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <SeekBar
+                        android:id="@+id/numbersSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:max="18"
+                        android:min="0"
+                        android:progress="10" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="?attr/cardviewcolor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Режим калькулятора"
+                        android:textColor="?attr/textcolorthree"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/calculatorMode1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_btn_dark"
+                            android:checked="true"
+                            android:text="Обычный"
+                            android:textColor="?attr/textcolortwo"
+                            android:textSize="18dp" />
+
+                        <RadioButton
+                            android:id="@+id/calculatorMode2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_btn_dark"
+                            android:text="Инженерный"
+                            android:textColor="?attr/textcolortwo"
+                            android:textSize="18dp" />
+
+                        <RadioButton
+                            android:id="@+id/calculatorMode3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_btn_dark"
+                            android:text="Программист"
+                            android:textColor="?attr/textcolortwo"
+                            android:textSize="18dp" />
+                    </RadioGroup>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar3"
+        style="@style/Widget.AppCompat.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/cardviewcolor"
+        app:buttonGravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
             <Button
@@ -250,8 +278,8 @@
                 android:background="@drawable/button_foo"
                 android:onClick="onOkClick"
                 android:text="Готово"
-                android:textStyle="bold"
-                android:textColor="?attr/textcolor" />
+                android:textColor="?attr/textcolor"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cansel"
@@ -262,9 +290,8 @@
                 android:background="@drawable/button_foo"
                 android:onClick="onCanselClick"
                 android:text="Отмена"
-                android:textStyle="bold"
-                android:textColor="?attr/textcolor" />
+                android:textColor="?attr/textcolor"
+                android:textStyle="bold" />
         </LinearLayout>
-
-    </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 </LinearLayout>

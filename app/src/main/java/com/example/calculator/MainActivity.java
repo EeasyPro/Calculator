@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
     final String SAVED_TEXT = "appStyle";
     private String appStyle;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE);

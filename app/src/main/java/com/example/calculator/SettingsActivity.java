@@ -35,6 +35,13 @@ public class SettingsActivity extends AppCompatActivity {
     private String appStyle;
     private String numberOfDecimal;
 
+    @Override
+    public void recreate() {
+        Intent intent = new Intent(SettingsActivity.this,SettingsActivity.class);
+        startActivity(intent);
+        CustomIntent.customType(SettingsActivity.this,"fadein-to-fadeout");
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
