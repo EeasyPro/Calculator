@@ -6,11 +6,11 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import maes.tech.intentanim.CustomIntent;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -39,9 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        Button OkBtn = findViewById(R.id.ok);
-        Button CanselBtn = findViewById(R.id.cansel);
-
         rb = findViewById(R.id.radioButton);
         rb1 = findViewById(R.id.radioButton1);
         rb2= findViewById(R.id.radioButton2);
@@ -58,38 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
         rb.setOnClickListener(radioButtonClickListener);
         rb1.setOnClickListener(radioButtonClickListener);
         rb2.setOnClickListener(radioButtonClickListener);
-
-
-
-        /*rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    appStyle = "AppTheme";
-                    saveText("AppTheme");
-                    CloseActivity();
-            }
-        });
-
-        rb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    appStyle = "LightColor";
-                    saveText("LightColor");
-                    CloseActivity();
-            }
-        });
-
-        rb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                appStyle = "ColorThemeOne";
-                saveText("ColorThemeOne");
-                CloseActivity();
-            }
-        });*/
     }
-
-
 
     View.OnClickListener radioButtonClickListener = new View.OnClickListener() {
         @Override
@@ -114,16 +80,29 @@ public class SettingsActivity extends AppCompatActivity {
         }
     };
 
+    public void onBackClick(View view)
+    {
+        startActivity(new Intent(this,MainActivity.class));
+        this.finish();
+    }
+
     public void onOkClick(View view)
     {
-        this.finish();
         startActivity(new Intent(this,MainActivity.class));
+        this.finish();
     }
+
 
     public void onCanselClick(View view)
     {
-        this.finish();
         startActivity(new Intent(this,MainActivity.class));
+        this.finish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        CustomIntent.customType(this,"right-to-left");
     }
 
     void saveText(String appStyle) {
@@ -131,13 +110,11 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(SAVED_TEXT, appStyle);
         ed.apply();
-        Toast.makeText(this, "Text saved", Toast.LENGTH_SHORT).show();
     }
 
     public String loadText() {
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         appStyle = sPref.getString(SAVED_TEXT, "");
-        Toast.makeText(this, "Text loaded:" + appStyle, Toast.LENGTH_SHORT).show();
         return appStyle;
     }
 }

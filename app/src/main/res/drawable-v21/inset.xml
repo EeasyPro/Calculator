@@ -9,8 +9,8 @@
                 <shape android:shape="rectangle"
                     android:tint="@color/WhiteTheme1">
                     <corners android:radius="10dp"/>
-                    <solid android:color="#1a237e"/>
                     <padding android:bottom="6dp"/>
+                    <stroke android:width="2dp" android:color="@color/FooTheme1"/>
                 </shape>
             </item>
         </ripple>

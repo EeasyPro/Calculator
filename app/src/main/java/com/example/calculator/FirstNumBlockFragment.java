@@ -1,14 +1,12 @@
 package com.example.calculator;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
@@ -23,10 +21,9 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
 
     private ArrayList<Button> buttons_numb = new ArrayList<>();
     private ArrayList<Button> buttons_foo = new ArrayList<>();
-    private ArrayList<ImageButton> buttons_foo2 = new ArrayList<>();
 
 
-    private String answer = "";
+    private String answer = "0";
     private String editText = "";
 
 
@@ -36,10 +33,10 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
     private int foo = 0;
     private int n = 10;
 
-    private boolean flag = true;
+    private boolean flag = false;
     private boolean dotChecker = false;
 
-    private boolean iswriting = true;
+    private boolean iswriting = false;
 
 
     private OnFragmentInteractionListener mListener;
@@ -77,14 +74,14 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
         final Button CE = view.findViewById(R.id.buttonDellLastNumber);
         final Button DOT = view.findViewById(R.id.buttonDOT);
         final Button SQRT = view.findViewById(R.id.sqrt);
-        final ImageButton POW = view.findViewById(R.id.pow);
-        final ImageButton FACT = view.findViewById(R.id.fact);
+        final Button FACT = view.findViewById(R.id.fact);
+        final Button POW = view.findViewById(R.id.pow);
+        final Button PERSENT = view.findViewById(R.id.percent);
 
-        final ImageButton color_btn = view.findViewById(R.id.settings_btn);
+
 
         Collections.addAll(buttons_numb, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE);
-        Collections.addAll(buttons_foo, EQUAL, PLUS, MINUS, DEL, CE, DIV, MUL, PM, DellLastSymbol, DOT, SQRT);
-        Collections.addAll(buttons_foo2, POW, FACT, color_btn);
+        Collections.addAll(buttons_foo, EQUAL, PLUS, MINUS, DEL, CE, DIV, MUL, PM, DellLastSymbol, DOT, SQRT, FACT, POW, PERSENT);
 
         for (Button button : buttons_numb)
             button.setOnClickListener(this);
@@ -92,20 +89,6 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
         for (Button button : buttons_foo)
             button.setOnClickListener(this);
 
-        for (ImageButton button : buttons_foo2)
-            button.setOnClickListener(this);
-
-        color_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getContext().getTheme().applyStyle(R.style.LightTheme, true);
-                Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                startActivityForResult(intent, 1);
-                listener.closeActivity();
-            }
-        });
-
-        /*return inflater.inflate(R.layout.fragment_first_num_block, container, false);*/
         return view;
     }
 
@@ -231,6 +214,10 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
             case R.id.fact:
                 somefoo(8);
                 break;
+
+            case R.id.percent:
+                somefoo(9);
+                break;
         }
     }
 
@@ -322,6 +309,11 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
                     answer = String.valueOf(current);
                     listener.onAnswerChanged(answer);
                 }
+                break;
+            case 9://percent
+                summ = (current.divide(BigDecimal.valueOf(100), n, BigDecimal.ROUND_FLOOR));
+                answer = String.valueOf(summ);
+                listener.onAnswerChanged(BigDecimal.valueOf(Double.parseDouble(answer)).toString());
                 break;
             default:
                 summ = summ.add(current);

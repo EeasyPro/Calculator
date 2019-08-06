@@ -6,7 +6,7 @@
         <solid android:color="?attr/numbersThemeSecond" />
         <stroke
             android:width="1dp"
-            android:color="#858585" />
+            android:color="?attr/numbersTheme" />
         <corners
             android:radius="10dp" />
         <padding
@@ -21,7 +21,7 @@
         <solid android:color="?attr/numbersTheme" />
         <stroke
             android:width="1dp"
-            android:color="#FF858585" />
+            android:color="?attr/numbersTheme" />
         <corners
             android:radius="10dp" />
         <padding

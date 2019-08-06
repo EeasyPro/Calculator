@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:context=".FirstNumBlockFragment"
-    android:orientation="vertical"
-    android:layout_gravity="bottom">
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:context=".FirstNumBlockFragment"
+        android:layout_gravity="bottom">
 
         <LinearLayout
             android:id="@+id/linearLayout5"
@@ -25,53 +21,55 @@
             >
 
             <Button
-                android:id="@+id/buttonDellLastNumber"
+                android:id="@+id/sqrt"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_foo"
-                android:text="CE"
-                android:textColor="#303030"
+                android:text="√"
+                android:textColor="?attr/textcolor"
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
+
+            <Button
+                android:id="@+id/pow"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_foo"
+                android:text="^"
+                android:textColor="?attr/textcolor"
+                app:autoSizeTextType="uniform"
+                android:textSize="32sp"/>
+
+            <Button
+                android:id="@+id/percent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_foo"
+                android:text="%"
+                android:textColor="?attr/textcolor"
+                android:textSize="32sp"
                 app:autoSizeTextType="uniform"/>
 
             <Button
-                android:id="@+id/buttonDEL"
+                android:id="@+id/fact"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_foo"
-                android:text="C"
-                android:textColor="#303030"
-                app:autoSizeTextType="uniform" />
+                android:text="!"
+                android:textColor="?attr/textcolor"
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform"/>
 
-            <Button
-                android:id="@+id/buttonDellLastSymbol"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_foo"
-                android:text="⌫"
-                android:textColor="#303030"
-                app:autoSizeTextType="uniform" />
 
-            <ImageButton
-                android:id="@+id/settings_btn"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_foo"
-                android:gravity="center_horizontal"
-                android:padding="2dp"
-                android:scaleType="centerCrop"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_settings2"
-                tools:ignore="VectorDrawableCompat" />
+
 
         </LinearLayout>
 
@@ -83,39 +81,36 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonPLUS"
+                android:id="@+id/buttonDellLastNumber"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_foo"
-                android:text="+"
-                android:textColor="#303030"
-                android:textSize="32sp"
+                android:text="CE"
+                android:textColor="?attr/textcolor"
                 app:autoSizeTextType="uniform" />
 
             <Button
-                android:id="@+id/buttonMINUS"
+                android:id="@+id/buttonDEL"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_foo"
-                android:text="−"
-                android:textColor="#303030"
-                android:textSize="32sp"
+                android:text="C"
+                android:textColor="?attr/textcolor"
                 app:autoSizeTextType="uniform" />
 
             <Button
-                android:id="@+id/buttonMUL"
+                android:id="@+id/buttonDellLastSymbol"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_foo"
-                android:text="×"
-                android:textColor="#303030"
-                android:textSize="32sp"
+                android:text="⌫"
+                android:textColor="?attr/textcolor"
                 app:autoSizeTextType="uniform" />
 
             <Button
@@ -126,7 +121,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_foo"
                 android:text="÷"
-                android:textColor="#303030"
+                android:textColor="?attr/textcolor"
                 android:textSize="32sp"
                 app:autoSizeTextType="uniform" />
 
@@ -176,14 +171,14 @@
                 app:autoSizeTextType="uniform" />
 
             <Button
-                android:id="@+id/sqrt"
+                android:id="@+id/buttonMUL"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_foo"
-                android:text="√"
-                android:textColor="#303030"
+                android:text="×"
+                android:textColor="?attr/textcolor"
                 android:textSize="32sp"
                 app:autoSizeTextType="uniform" />
 
@@ -231,15 +226,17 @@
                 android:textSize="32sp"
                 app:autoSizeTextType="uniform" />
 
-            <ImageButton
-                android:id="@+id/pow"
+            <Button
+                android:id="@+id/buttonMINUS"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_foo"
-                android:src="@drawable/ic_iconfinder_icon"
-                android:textColor="#303030" />
+                android:text="−"
+                android:textColor="?attr/textcolor"
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
 
         </LinearLayout>
 
@@ -285,15 +282,17 @@
                 android:textSize="32sp"
                 app:autoSizeTextType="uniform" />
 
-            <ImageButton
-                android:id="@+id/fact"
+            <Button
+                android:id="@+id/buttonPLUS"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_foo"
-                android:src="@drawable/ic_fact"
-                android:textColor="#303030" />
+                android:text="+"
+                android:textColor="?attr/textcolor"
+                android:textSize="32sp"
+                app:autoSizeTextType="uniform" />
         </LinearLayout>
 
         <LinearLayout
@@ -308,7 +307,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo"
+                android:background="@drawable/button_numbers"
                 android:text=","
                 android:textColor="#303030"
                 android:textSize="32sp"
@@ -332,7 +331,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_foo"
+                android:background="@drawable/button_numbers"
                 android:text="±"
                 android:textColor="#303030"
                 android:textSize="32sp"
@@ -347,12 +346,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_foo"
                 android:text="="
-                android:textColor="#303030"
+                android:textColor="?attr/textcolor"
                 android:textSize="32sp"
                 app:autoSizeTextType="uniform" />
-
         </LinearLayout>
-
     </LinearLayout>
-
-</LinearLayout>

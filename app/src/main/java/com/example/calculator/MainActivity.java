@@ -1,12 +1,17 @@
 package com.example.calculator;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import maes.tech.intentanim.CustomIntent;
 
 public class MainActivity extends AppCompatActivity implements FirstNumBlockFragment.OnFragmentInteractionListener {
 
@@ -24,11 +29,11 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
         appStyle = sPref.getString(SAVED_TEXT, "");
 
         switch (appStyle) {
-            case "AppTheme": setTheme(R.style.AppTheme);Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
+            case "AppTheme": setTheme(R.style.AppTheme);
                 break;
-            case "LightTheme": setTheme(R.style.LightTheme);Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
+            case "LightTheme": setTheme(R.style.LightTheme);
                 break;
-            case "ColorThemeOne": setTheme(R.style.ColorThemeOne);Toast.makeText(this, "3", Toast.LENGTH_SHORT).show();
+            case "ColorThemeOne": setTheme(R.style.ColorThemeOne);
                 break;
             default:
                 Toast.makeText(this, "Default", Toast.LENGTH_SHORT).show();
@@ -44,9 +49,9 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
         editText.setMaxLines(1);
         answer.setMaxLines(1);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        ImageButton color_btn = findViewById(R.id.settings_btn);
 
-//        mainLayout = findViewById(R.id.mainLayout);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         FirstNumBlockFragment fragment = new FirstNumBlockFragment();
         fragment.setOnFragmentInteractionListener(this);
@@ -54,6 +59,16 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         fragmentTransaction.add(R.id.numContainer, fragment).commit();
+
+        color_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                CustomIntent.customType(MainActivity.this,"left-to-right");
+                closeActivity();
+            }
+        });
     }
 
     @Override

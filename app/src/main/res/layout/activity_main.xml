@@ -12,10 +12,52 @@
     android:background="?attr/bacgroundcolor">
 
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.AppCompat.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/settings_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/button_settings"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_settings"
+                tools:ignore="VectorDrawableCompat" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Обычный"
+                android:textColor="?attr/numbersTheme"
+                android:textSize="32dp"
+                app:autoSizeTextType="uniform" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
 
     </LinearLayout>
 
@@ -26,9 +68,8 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="8dp"
         android:layout_weight="2"
-        android:background="@drawable/inset"
+        android:background="@drawable/button_numbers"
         android:gravity="center_vertical"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -68,7 +109,8 @@
     <LinearLayout
         android:id="@+id/numContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="7"
         android:orientation="vertical">
         <!--<include
             layout="@layout/fragment_first_num_block"
