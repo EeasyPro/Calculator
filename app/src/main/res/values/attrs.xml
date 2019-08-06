@@ -6,6 +6,7 @@
         <attr name="fooThemeSecond" format="color" />
         <attr name="textcolor" format="color" />
         <attr name="textcolortwo" format="color" />
+        <attr name="textcolorthree" format="color" />
         <attr name="cardviewcolor" format="color" />
         <attr name="tintcolor" format="color" />
         <attr name="numbersTheme" format="color" />

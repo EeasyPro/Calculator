@@ -1,6 +1,8 @@
 package com.example.calculator;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,6 +39,9 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
     private boolean dotChecker = false;
 
     private boolean iswriting = false;
+
+    SharedPreferences sPref;
+    final String SAVED_TEXT2 = "numbersSize";
 
 
     private OnFragmentInteractionListener mListener;
@@ -76,12 +81,15 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
         final Button SQRT = view.findViewById(R.id.sqrt);
         final Button FACT = view.findViewById(R.id.fact);
         final Button POW = view.findViewById(R.id.pow);
-        final Button PERSENT = view.findViewById(R.id.percent);
+        final Button PERCENT = view.findViewById(R.id.percent);
+
+        loadText();
+        n = Integer.valueOf(sPref.getString(SAVED_TEXT2,""));
 
 
 
         Collections.addAll(buttons_numb, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE);
-        Collections.addAll(buttons_foo, EQUAL, PLUS, MINUS, DEL, CE, DIV, MUL, PM, DellLastSymbol, DOT, SQRT, FACT, POW, PERSENT);
+        Collections.addAll(buttons_foo, EQUAL, PLUS, MINUS, DEL, CE, DIV, MUL, PM, DellLastSymbol, DOT, SQRT, FACT, POW, PERCENT);
 
         for (Button button : buttons_numb)
             button.setOnClickListener(this);
@@ -234,7 +242,6 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
         } catch (Exception e) {
             answer = "0";
             listener.onAnswerChanged(answer);
-
             current = BigDecimal.valueOf(Double.parseDouble(answer));
             Toast toast3 = Toast.makeText(getContext(), "Сработало исключение", Toast.LENGTH_SHORT);
             toast3.show();
@@ -311,14 +318,29 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
                 }
                 break;
             case 9://percent
-                summ = (current.divide(BigDecimal.valueOf(100), n, BigDecimal.ROUND_FLOOR));
-                answer = String.valueOf(summ);
-                listener.onAnswerChanged(BigDecimal.valueOf(Double.parseDouble(answer)).toString());
+                if(answer.equals("0")) return;
+                else {
+                    summ = (current.divide(BigDecimal.valueOf(100), n, BigDecimal.ROUND_FLOOR));
+                    answer = String.valueOf(summ);
+                    listener.onAnswerChanged(BigDecimal.valueOf(Double.parseDouble(answer)).toString());
+                }
                 break;
             default:
                 summ = summ.add(current);
                 break;
         }
+
+
+        while (answer.contains(".") && ((answer.charAt(answer.length()-1) == '0')||(answer.charAt(answer.length()-1) == '.')))
+        {
+            answer = answer.substring(0,(answer.length()-1));
+        }
+        listener.onAnswerChanged(answer);
+
+    }
+
+    public void loadText() {
+        sPref = this.getActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
     }
 
     @SuppressLint("SetTextI18n")

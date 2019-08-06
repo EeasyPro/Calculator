@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
     TextView answer;
 
     SharedPreferences sPref;
-    final String SAVED_TEXT = "saved_text";
+    final String SAVED_TEXT = "appStyle";
     private String appStyle;
 
 
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
     protected void onCreate(Bundle savedInstanceState) {
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         appStyle = sPref.getString(SAVED_TEXT, "");
+
 
         switch (appStyle) {
             case "AppTheme": setTheme(R.style.AppTheme);
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
         fragment.setOnFragmentInteractionListener(this);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
         fragmentTransaction.add(R.id.numContainer, fragment).commit();
 
         color_btn.setOnClickListener(new View.OnClickListener() {
