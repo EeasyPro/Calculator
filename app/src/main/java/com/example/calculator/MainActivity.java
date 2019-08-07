@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,20 +14,25 @@ import android.widget.Toast;
 
 import maes.tech.intentanim.CustomIntent;
 
-public class MainActivity extends AppCompatActivity implements FirstNumBlockFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements FirstNumBlockFragment.OnFragmentInteractionListener, SecondNumBlockFragment.OnFragmentInteractionListener {
 
     TextView editText;
     TextView answer;
 
     SharedPreferences sPref;
     final String SAVED_TEXT = "appStyle";
+    final String SAVED_TEXT3 = "numMod";
+
     private String appStyle;
+    private String numMod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         appStyle = sPref.getString(SAVED_TEXT, "");
+        numMod = sPref.getString(SAVED_TEXT3, "");
 
+        Toast.makeText(this,numMod,Toast.LENGTH_SHORT).show();
 
         switch (appStyle) {
             case "AppTheme": setTheme(R.style.AppTheme);
@@ -49,17 +55,38 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
         editText.setMaxLines(1);
         answer.setMaxLines(1);
 
-        ImageButton color_btn = findViewById(R.id.settings_btn);
+        TextView title = findViewById(R.id.title);
 
+        ImageButton settings_btn = findViewById(R.id.settings_btn);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        FirstNumBlockFragment fragment = new FirstNumBlockFragment();
-        fragment.setOnFragmentInteractionListener(this);
+        Fragment fragment = null;
+
+        switch (numMod) {
+            case "Normal":
+                fragment = new FirstNumBlockFragment();
+               ((FirstNumBlockFragment) fragment).setOnFragmentInteractionListener(this);
+                title.setText("Normal");
+                break;
+            case "Engineer":
+                fragment = new SecondNumBlockFragment();
+                ((SecondNumBlockFragment) fragment).setOnFragmentInteractionListener(this);
+                title.setText("Engineer");
+                break;
+            case "Programmer":
+                fragment = new SecondNumBlockFragment();
+                ((SecondNumBlockFragment) fragment).setOnFragmentInteractionListener(this);
+                title.setText("Programmer");
+                break;
+        }
+
+            if(fragment == null) fragment = new FirstNumBlockFragment();
+
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.numContainer, fragment).commit();
 
-        color_btn.setOnClickListener(new View.OnClickListener() {
+        settings_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -84,57 +111,4 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
     public void onEditTextChanged(String editText) {
         this.editText.setText(editText);
     }
-
-    /*@SuppressLint("ResourceAsColor")
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data == null) {
-            return;
-        }
-        int color = data.getIntExtra("color", 0);
-        Window window = this.getWindow();
-        switch (color) {
-            case 0:
-                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-                mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                for (Button button : buttons_numb)
-                    button.setBackground(getDrawable(R.drawable.button_numbers));
-                for (Button button : buttons_foo)
-                    button.setBackground(getDrawable(R.drawable.button_foo));
-                for (ImageButton button : buttons_foo2)
-                    button.setBackground(getDrawable(R.drawable.button_foo));
-                break;
-
-            case 1:
-                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark1));
-                mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary1));
-                for (Button button : buttons_numb)
-                    button.setBackground(getDrawable(R.drawable.button_numbers1));
-                for (Button button : buttons_foo)
-                    button.setBackground(getDrawable(R.drawable.button_foo1));
-                for (ImageButton button : buttons_foo2)
-                    button.setBackground(getDrawable(R.drawable.button_foo1));
-                break;
-            case 2:
-                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark2));
-                mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary2));
-                for (Button button : buttons_numb)
-                    button.setBackground(getDrawable(R.drawable.button_numbers2));
-                for (Button button : buttons_foo)
-                    button.setBackground(getDrawable(R.drawable.button_foo2));
-                for (ImageButton button : buttons_foo2)
-                    button.setBackground(getDrawable(R.drawable.button_foo2));
-                break;
-            case 3:
-                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark3));
-                mainLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary3));
-                for (Button button : buttons_numb)
-                    button.setBackground(getDrawable(R.drawable.button_numbers3));
-                for (Button button : buttons_foo)
-                    button.setBackground(getDrawable(R.drawable.button_foo3));
-                for (ImageButton button : buttons_foo2)
-                    button.setBackground(getDrawable(R.drawable.button_foo3));
-                break;
-        }
-    }*/
 }

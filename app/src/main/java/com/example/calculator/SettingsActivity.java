@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,8 +32,10 @@ public class SettingsActivity extends AppCompatActivity {
     SharedPreferences sPref;
     final String SAVED_TEXT = "appStyle";
     final String SAVED_TEXT2 = "numbersSize";
+    final String SAVED_TEXT3 = "numMod";
 
     private String appStyle;
+    private String numMod;
     private String numberOfDecimal;
 
     @Override
@@ -110,10 +113,48 @@ public class SettingsActivity extends AppCompatActivity {
                 break;
         }
 
+        if(numMod == null) numMod ="Normal";
+
+        switch (numMod) {
+            case "Normal":
+                calculatorMode1.setChecked(true);
+                break;
+            case "Engineer":
+                calculatorMode2.setChecked(true);
+                break;
+            case "Programmer":
+                calculatorMode3.setChecked(true);
+                break;
+        }
+        calculatorMode1.setOnClickListener(calculatorModeClickListener);
+        calculatorMode2.setOnClickListener(calculatorModeClickListener);
+        calculatorMode3.setOnClickListener(calculatorModeClickListener);
+
         rb.setOnClickListener(radioButtonClickListener);
         rb1.setOnClickListener(radioButtonClickListener);
         rb2.setOnClickListener(radioButtonClickListener);
     }
+
+    View.OnClickListener calculatorModeClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            RadioButton rb = (RadioButton) v;
+            switch (rb.getId()) {
+                case R.id.calculatorMode1:
+                    numMod = "Normal";
+                    break;
+                case R.id.calculatorMode2:
+                    numMod = "Engineer";
+                    break;
+                case R.id.calculatorMode3:
+                    numMod = "Programmer";
+                    break;
+                default:
+                    Toast.makeText(getApplicationContext(),"ban",Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 
 
     View.OnClickListener radioButtonClickListener = new View.OnClickListener() {
@@ -151,6 +192,8 @@ public class SettingsActivity extends AppCompatActivity {
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(SAVED_TEXT2, numberOfDecimal);
+        ed.putString(SAVED_TEXT3, numMod);
+        Toast.makeText(this,numMod,Toast.LENGTH_SHORT).show();
         ed.apply();
         startActivity(new Intent(this,MainActivity.class));
         this.finish();
@@ -186,5 +229,6 @@ public class SettingsActivity extends AppCompatActivity {
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         numberOfDecimal = sPref.getString(SAVED_TEXT2,"");
         appStyle = sPref.getString(SAVED_TEXT, "");
+        numMod = sPref.getString(SAVED_TEXT3, "");
     }
 }
