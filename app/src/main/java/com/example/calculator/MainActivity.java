@@ -78,6 +78,11 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
                 ((SecondNumBlockFragment) fragment).setOnFragmentInteractionListener(this);
                 title.setText("Programmer");
                 break;
+            default:
+                fragment = new FirstNumBlockFragment();
+                ((FirstNumBlockFragment) fragment).setOnFragmentInteractionListener(this);
+                title.setText("Normal");
+                break;
         }
 
             if(fragment == null) fragment = new FirstNumBlockFragment();

@@ -39,7 +39,8 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
     private int n = 10;
 
     private boolean flag = false;
-    private boolean dotChecker = false;
+    private boolean dotCheckerAfterSign = false;
+    private boolean dotCheckerAfterNumber = true;
 
     private boolean iswriting = false;
 
@@ -80,7 +81,7 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
         final Button MINUS = view.findViewById(R.id.buttonMINUS);
         final Button EQUAL = view.findViewById(R.id.buttonEQUAL);
         final Button DEL = view.findViewById(R.id.buttonDEL);
-        final Button DIV = view.findViewById(R.id.buttonDIV);
+        final Button DIVISION = view.findViewById(R.id.buttonDIV);
         final Button MUL = view.findViewById(R.id.buttonMUL);
         final Button PM = view.findViewById(R.id.buttonPLUSMINUS);
         final Button DellLastSymbol = view.findViewById(R.id.buttonDellLastSymbol);
@@ -89,7 +90,21 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
         final Button SQRT = view.findViewById(R.id.sqrt);
         final Button FACT = view.findViewById(R.id.fact);
         final Button POW = view.findViewById(R.id.pow);
-        final Button PERCENT = view.findViewById(R.id.percent);
+
+        final Button PI = view.findViewById(R.id.numPi);
+        final Button DIV = view.findViewById(R.id.div);
+        final Button MOD = view.findViewById(R.id.mod);
+        final Button LEFTPAR = view.findViewById(R.id.leftPar);
+        final Button RIGHTPAR = view.findViewById(R.id.rightPar);
+        final Button EPS = view.findViewById(R.id.eps);
+
+        final Button TAN = view.findViewById(R.id.tan);
+        final Button COS = view.findViewById(R.id.cos);
+        final Button SIN = view.findViewById(R.id.sin);
+        final Button LOG = view.findViewById(R.id.log);
+        final Button LN = view.findViewById(R.id.ln);
+
+
 
         loadText();
         try {
@@ -97,14 +112,13 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
         catch (Exception e){n = 10;}
 
         Collections.addAll(buttons_numb, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE);
-        Collections.addAll(buttons_foo, EQUAL, PLUS, MINUS, DEL, CE, DIV, MUL, PM, DellLastSymbol, DOT, SQRT, FACT, POW, PERCENT);
+        Collections.addAll(buttons_foo, EQUAL, PLUS, MINUS, DEL, CE, DIVISION, MUL, PM, DellLastSymbol, DOT, SQRT, FACT, POW, PI, DIV, MOD, LEFTPAR, RIGHTPAR, EPS, TAN, COS, SIN, LOG, LN);
 
         for (Button button : buttons_numb)
             button.setOnClickListener(this);
 
         for (Button button : buttons_foo)
             button.setOnClickListener(this);
-
         return view;
     }
 
@@ -139,45 +153,55 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
         for (Button button : buttons_numb) {
             if (v == button) {
                 Check();
-                answer = answer + button.getText().toString();
-                listener.onAnswerChanged(answer);
+                editText = editText + button.getText().toString();
+                listener.onEditTextChanged(editText);
+                dotCheckerAfterNumber = false;
             }
         }
 
         switch (v.getId()) {
+
             case R.id.buttonPLUS:
-                somefoo(foo);
-                foo = 1;
+                dotCheckerAfterSign = false;
+                dotCheckerAfterNumber = true;
                 editText = editText + " + ";
                 listener.onEditTextChanged(editText);
                 break;
             case R.id.buttonMINUS:
-                somefoo(foo);
-                foo = 2;
+                dotCheckerAfterSign = false;
+                dotCheckerAfterNumber = true;
                 editText = editText + " - ";
                 listener.onEditTextChanged(editText);
                 break;
             case R.id.buttonMUL:
-                somefoo(foo);
-                foo = 3;
+                dotCheckerAfterSign = false;
+                dotCheckerAfterNumber = true;
                 editText = editText + " × ";
                 listener.onEditTextChanged(editText);
                 break;
             case R.id.buttonDIV:
-                somefoo(foo);
-                foo = 4;
+                dotCheckerAfterSign = false;
+                dotCheckerAfterNumber = true;
                 editText = editText + " ÷ ";
                 listener.onEditTextChanged(editText);
                 break;
 
-            case R.id.buttonEQUAL:
-                somefoo(foo);
-                foo = 0;
-                flag = true;
-                editText = "";
+                    case R.id.buttonEQUAL:
+                        somefoo(foo);
+                        foo = 0;
+                        flag = true;
+                        editText = "";
+                        listener.onEditTextChanged(editText);
+                        iswriting = false;
+                        break;
+
+            case R.id.buttonPLUSMINUS:
+                if (editText.charAt(editText.length()-1) == '-')
+                    editText = editText.substring(0,editText.length()-1);
+                else  editText = editText.substring(0,editText.length()-1) + " -";
                 listener.onEditTextChanged(editText);
-                iswriting = false;
                 break;
+
             case R.id.buttonDEL:
                 foo = 0;
                 summ = BigDecimal.valueOf(0);
@@ -187,9 +211,7 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
                 answer = "0";
                 listener.onAnswerChanged(answer);
                 break;
-            case R.id.buttonPLUSMINUS:
-                somefoo(5);
-                break;
+
             case R.id.buttonDellLastSymbol:
                 String str = answer;
                 if (str.length() != 0) {
@@ -209,30 +231,86 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
                 break;
 
             case R.id.buttonDOT:
-                if (!dotChecker) {
-                    dotChecker = true;
-                    answer = answer + ".";
-                    listener.onAnswerChanged(answer);
+                if (!dotCheckerAfterSign && !dotCheckerAfterNumber) {
+                    dotCheckerAfterSign = true;
+                    dotCheckerAfterNumber = true;
+                    editText = editText + ".";
+                    listener.onEditTextChanged(editText);
                 }
                 break;
 
+            case R.id.numPi:
+                Check();
+//                editText = editText + Math.PI;
+                editText = editText + "pi";
+                listener.onEditTextChanged(editText);
+                break;
+
+            case R.id.eps:
+                Check();
+//                editText = editText + Math.E;
+                editText = editText + "e";
+                listener.onEditTextChanged(editText);
+                break;
+
             case R.id.sqrt:
-                somefoo(6);
+                editText = editText + "√";
+                listener.onEditTextChanged(editText);
                 break;
 
             case R.id.pow:
-                somefoo(foo);
-                foo = 7;
                 editText = editText + "^";
                 listener.onEditTextChanged(editText);
                 break;
 
             case R.id.fact:
-                somefoo(8);
+                editText = editText + " !";
+                listener.onEditTextChanged(editText);
                 break;
 
-            case R.id.percent:
-                somefoo(9);
+            case R.id.leftPar:
+                editText = editText + " (";
+                listener.onEditTextChanged(editText);
+                break;
+
+            case R.id.rightPar:
+                editText = editText + ")";
+                listener.onEditTextChanged(editText);
+                break;
+
+            case R.id.div:
+                editText = editText + "div(";
+                listener.onEditTextChanged(editText);
+                break;
+
+            case R.id.mod:
+                editText = editText + "mod(";
+                listener.onEditTextChanged(editText);
+                break;
+
+            case R.id.cos:
+                editText = editText + "cos(";
+                listener.onEditTextChanged(editText);
+                break;
+
+            case R.id.sin:
+                editText = editText + "sin(";
+                listener.onEditTextChanged(editText);
+                break;
+
+            case R.id.tan:
+                editText = editText + "tg(";
+                listener.onEditTextChanged(editText);
+                break;
+
+            case R.id.ln:
+                editText = editText + "ln(";
+                listener.onEditTextChanged(editText);
+                break;
+
+            case R.id.log:
+                editText = editText + "log(";
+                listener.onEditTextChanged(editText);
                 break;
         }
     }
@@ -243,7 +321,7 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
     }
 
     private void somefoo(int foo) {
-        dotChecker = false;
+        dotCheckerAfterSign = false;
 
         try {
             current = BigDecimal.valueOf(Double.parseDouble(answer));
@@ -347,8 +425,6 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
 
     }
 
-
-
     @SuppressLint("SetTextI18n")
     private void Print(BigDecimal summ, BigDecimal current) {
         if (summ.doubleValue() == summ.intValue()) {
@@ -373,7 +449,6 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
     void setOnFragmentInteractionListener(OnFragmentInteractionListener listener) {
         this.listener = listener;
     }
-
 
     public interface OnFragmentInteractionListener {
         void onAnswerChanged(String answer);
