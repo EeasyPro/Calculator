@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -105,11 +106,12 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
         final Button LN = view.findViewById(R.id.ln);
 
 
-
         loadText();
         try {
-            n = Integer.valueOf(Objects.requireNonNull(sPref.getString(SAVED_TEXT2, "")));}
-        catch (Exception e){n = 10;}
+            n = Integer.valueOf(Objects.requireNonNull(sPref.getString(SAVED_TEXT2, "")));
+        } catch (Exception e) {
+            n = 10;
+        }
 
         Collections.addAll(buttons_numb, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE);
         Collections.addAll(buttons_foo, EQUAL, PLUS, MINUS, DEL, CE, DIVISION, MUL, PM, DellLastSymbol, DOT, SQRT, FACT, POW, PI, DIV, MOD, LEFTPAR, RIGHTPAR, EPS, TAN, COS, SIN, LOG, LN);
@@ -186,19 +188,14 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
                 listener.onEditTextChanged(editText);
                 break;
 
-                    case R.id.buttonEQUAL:
-                        somefoo(foo);
-                        foo = 0;
-                        flag = true;
-                        editText = "";
-                        listener.onEditTextChanged(editText);
-                        iswriting = false;
-                        break;
+            case R.id.buttonEQUAL:
+                Parser(editText);
+                break;
 
             case R.id.buttonPLUSMINUS:
-                if (editText.charAt(editText.length()-1) == '-')
-                    editText = editText.substring(0,editText.length()-1);
-                else  editText = editText.substring(0,editText.length()-1) + " -";
+                if (editText.charAt(editText.length() - 1) == '-')
+                    editText = editText.substring(0, editText.length() - 1);
+                else editText = editText.substring(0, editText.length() - 1) + " -";
                 listener.onEditTextChanged(editText);
                 break;
 
@@ -213,15 +210,15 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
                 break;
 
             case R.id.buttonDellLastSymbol:
-                String str = answer;
+                String str = editText;
                 if (str.length() != 0) {
                     str = str.substring(0, str.length() - 1);
-                    answer = str;
-                    listener.onAnswerChanged(answer);
+                    editText = str;
+                    listener.onEditTextChanged(editText);
                 }
-                if (answer.length() == 0) {
-                    answer = "0";
-                    listener.onAnswerChanged(answer);
+                if (editText.length() == 0) {
+                    editText = "0";
+                    listener.onEditTextChanged(editText);
                 }
                 break;
 
@@ -264,12 +261,12 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
                 break;
 
             case R.id.fact:
-                editText = editText + " !";
+                editText = editText + "!";
                 listener.onEditTextChanged(editText);
                 break;
 
             case R.id.leftPar:
-                editText = editText + " (";
+                editText = editText + "(";
                 listener.onEditTextChanged(editText);
                 break;
 
@@ -279,12 +276,12 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
                 break;
 
             case R.id.div:
-                editText = editText + "div(";
+                editText = editText + "div";
                 listener.onEditTextChanged(editText);
                 break;
 
             case R.id.mod:
-                editText = editText + "mod(";
+                editText = editText + "mod";
                 listener.onEditTextChanged(editText);
                 break;
 
@@ -313,6 +310,151 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
                 listener.onEditTextChanged(editText);
                 break;
         }
+
+        try {
+            Parser(editText);
+        } catch (Exception e) {
+        }
+    }
+
+    public void Parser(String str) {
+        char[] array = str.toCharArray();
+        int start = 0;
+        int finish = 0;
+
+        for (int i = 1; i < str.length(); i++) {
+            if (array[i] == '(')
+                start = i + 1;
+        }
+
+        for (int i = start; i < str.length(); i++) {
+            if (array[i] == ')') {
+                finish = i;
+                break;
+            }
+        }
+        if (finish != 0) {
+            String toPars = (Calculating(str.substring(start, finish)))/*.substring(start,finish)*/;
+            toPars = deliteNull(toPars);
+            str = str.substring(0, start - 1)
+                    + toPars
+                    + str.substring(finish + 1);
+            Parser(str);
+//            Toast.makeText(getContext(), Calculating(str.substring(start, finish)), Toast.LENGTH_SHORT).show();
+        } else {
+            answer = Calculating(str);
+            BigDecimal answerNumber = (BigDecimal.valueOf(Double.valueOf(answer)).setScale(n, BigDecimal.ROUND_FLOOR));
+            listener.onAnswerChanged(deliteNull(answerNumber.toString()));
+        }
+    }
+
+    private String Calculating(String str) {
+        BigDecimal answer = BigDecimal.valueOf(0);
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(str.split(" ")));
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).equals("pi"))
+                list.set(i, String.valueOf(Math.PI));
+            if (list.get(i).equals("e"))
+                list.set(i, String.valueOf(Math.E));
+
+            try {
+                switch (list.get(i).substring(0, 3)) {
+                    case ("cos"):
+                        list.set(i, BigDecimal.valueOf(Math.cos(Double.valueOf(list.get(i).substring(3)))).toString());
+                        break;
+                    case ("sin"):
+                        list.set(i, BigDecimal.valueOf(Math.sin(Double.valueOf(list.get(i).substring(3)))).toString());
+                        break;
+                    case ("log"):
+                        list.set(i, BigDecimal.valueOf(Math.log10(Double.valueOf(list.get(i).substring(3)))).toString());
+                        break;
+                }
+            } catch (Exception ignored) {
+            }
+
+            try {
+                switch (list.get(i).substring(0, 2)) {
+                    case ("tg"):
+                        list.set(i, BigDecimal.valueOf(Math.tan(Double.valueOf(list.get(i).substring(3)))).toString());
+                        break;
+                    case ("ln"):
+                        list.set(i, BigDecimal.valueOf(Math.log(Double.valueOf(list.get(i).substring(3)))).toString());
+                        break;
+                }
+            } catch (Exception ignored) {
+            }
+
+            try {
+                if (list.get(i).substring(0, 1).equals("!")) {
+                    BigDecimal pep = BigDecimal.valueOf(1);
+                    int pip = Integer.valueOf(list.get(i).substring(1));
+                    for (int j = 1; j <= pip; j++)
+                        pep = pep.multiply(BigDecimal.valueOf(j));
+                    list.set(i, String.valueOf(pep));
+                }
+            } catch (Exception e) {
+            }
+            try {
+                if (list.get(i).substring(list.get(i).length()-1).equals("!")) {
+                    BigDecimal pep = BigDecimal.valueOf(1);
+                    int pip = Integer.valueOf(list.get(i).substring(0, list.get(i).length()-1));
+                    for (int j = 1; j <= pip; j++)
+                        pep = pep.multiply(BigDecimal.valueOf(j));
+                    list.set(i, String.valueOf(pep));
+                }
+            } catch (Exception e) {
+            }
+
+            try {
+                if (list.get(i).contains("1") || list.get(i).contains("2") || list.get(i).contains("3") ||
+                        list.get(i).contains("4") || list.get(i).contains("5") || list.get(i).contains("6") ||
+                        list.get(i).contains("7") || list.get(i).contains("8") || list.get(i).contains("9")) {
+                    list.set(i, BigDecimal.valueOf(Double.valueOf(list.get(i))).toString());
+                }
+            } catch (Exception ignored) {
+            }
+        }
+
+        try {
+            for (int i = 1; i < list.size() - 1; i++) {
+                switch (list.get(i)) {
+                    case "×":
+                        list.set(i, (BigDecimal.valueOf(Double.valueOf(list.get(i - 1))).multiply(BigDecimal.valueOf(Double.valueOf(list.get(i + 1))))).toString());
+                        list.remove(i + 1);
+                        list.remove(i - 1);
+                        i = i - 2;
+                        break;
+                    case "÷":
+                        list.set(i, (BigDecimal.valueOf(Double.valueOf(list.get(i - 1))).divide(BigDecimal.valueOf(Double.valueOf(list.get(i + 1))))).toString());
+                        list.remove(i + 1);
+                        list.remove(i - 1);
+                        i = i - 2;
+                        break;
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            for (int i = 1; i < list.size() - 1; i++) {
+                switch (list.get(i)) {
+                    case "+":
+                        list.set(i, (BigDecimal.valueOf(Double.valueOf(list.get(i - 1))).add(BigDecimal.valueOf(Double.valueOf(list.get(i + 1))))).toString());
+                        list.remove(i + 1);
+                        list.remove(i - 1);
+                        i = i - 2;
+                        break;
+                    case "-":
+                        list.set(i, (BigDecimal.valueOf(Double.valueOf(list.get(i - 1))).subtract(BigDecimal.valueOf(Double.valueOf(list.get(i + 1))))).toString());
+                        list.remove(i + 1);
+                        list.remove(i - 1);
+                        i = i - 2;
+                        break;
+                }
+            }
+        } catch (Exception e) {
+        }
+        return list.get(0);
     }
 
     public static BigDecimal sqrt(BigDecimal value) {
@@ -404,7 +546,7 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
                 }
                 break;
             case 9://percent
-                if(answer.equals("0")) return;
+                if (answer.equals("0")) return;
                 else {
                     summ = (current.divide(BigDecimal.valueOf(100), n, BigDecimal.ROUND_FLOOR));
                     answer = String.valueOf(summ);
@@ -415,14 +557,16 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
                 summ = summ.add(current);
                 break;
         }
+        deliteNull(answer);
+    }
 
-
-        while (answer.contains(".") && ((answer.charAt(answer.length()-1) == '0')||(answer.charAt(answer.length()-1) == '.')))
-        {
-            answer = answer.substring(0,(answer.length()-1));
+    private String deliteNull(String str) {
+        while (str.contains(".") && ((str.charAt(str.length() - 1) == '0') || (str.charAt(str.length() - 1) == '.'))) {
+            str = str.substring(0, (str.length() - 1));
         }
-        listener.onAnswerChanged(answer);
-
+        BigDecimal strNumber = (BigDecimal.valueOf(Double.valueOf(str)).setScale(n, BigDecimal.ROUND_FLOOR));
+        listener.onAnswerChanged(strNumber.toString());
+        return str;
     }
 
     @SuppressLint("SetTextI18n")
@@ -452,7 +596,9 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
 
     public interface OnFragmentInteractionListener {
         void onAnswerChanged(String answer);
+
         void onEditTextChanged(String editText);
+
         void closeActivity();
     }
 }

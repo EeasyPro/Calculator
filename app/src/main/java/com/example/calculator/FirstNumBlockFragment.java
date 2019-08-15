@@ -324,10 +324,11 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
                 }
                 break;
             case 9://percent
-                if(answer.equals("0")) return;
+                String hundred = "0.01";
+                if(current.equals("0")) return;
                 else {
-                    summ = (current.divide(BigDecimal.valueOf(100), n, BigDecimal.ROUND_FLOOR));
-                    answer = String.valueOf(summ);
+//                    summ = current.multiply(BigDecimal.valueOf(Double.parseDouble(hundred)));
+                    answer = String.valueOf(current.multiply(BigDecimal.valueOf(Double.parseDouble(hundred))));
                     listener.onAnswerChanged(BigDecimal.valueOf(Double.parseDouble(answer)).toString());
                 }
                 break;
@@ -337,12 +338,10 @@ public class FirstNumBlockFragment extends Fragment implements View.OnClickListe
         }
 
 
-        while (answer.contains(".") && ((answer.charAt(answer.length()-1) == '0')||(answer.charAt(answer.length()-1) == '.')))
-        {
+        while (answer.contains(".") && ((answer.charAt(answer.length()-1) == '0')||(answer.charAt(answer.length()-1) == '.'))){
             answer = answer.substring(0,(answer.length()-1));
         }
         listener.onAnswerChanged(answer);
-
     }
 
     public void loadText() {

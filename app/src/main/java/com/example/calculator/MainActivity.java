@@ -66,22 +66,22 @@ public class MainActivity extends AppCompatActivity implements FirstNumBlockFrag
             case "Normal":
                 fragment = new FirstNumBlockFragment();
                ((FirstNumBlockFragment) fragment).setOnFragmentInteractionListener(this);
-                title.setText("Normal");
+                title.setText("Обычный");
                 break;
             case "Engineer":
                 fragment = new SecondNumBlockFragment();
                 ((SecondNumBlockFragment) fragment).setOnFragmentInteractionListener(this);
-                title.setText("Engineer");
+                title.setText("Инженерный");
                 break;
             case "Programmer":
                 fragment = new SecondNumBlockFragment();
                 ((SecondNumBlockFragment) fragment).setOnFragmentInteractionListener(this);
-                title.setText("Programmer");
+                title.setText("Программист");
                 break;
             default:
                 fragment = new FirstNumBlockFragment();
                 ((FirstNumBlockFragment) fragment).setOnFragmentInteractionListener(this);
-                title.setText("Normal");
+                title.setText("Обычный");
                 break;
         }
 
