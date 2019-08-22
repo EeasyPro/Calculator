@@ -340,22 +340,46 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
                     + toPars
                     + str.substring(finish + 1);
             Parser(str);
-//            Toast.makeText(getContext(), Calculating(str.substring(start, finish)), Toast.LENGTH_SHORT).show();
         } else {
             answer = Calculating(str);
-            BigDecimal answerNumber = (BigDecimal.valueOf(Double.valueOf(answer)).setScale(n, BigDecimal.ROUND_FLOOR));
-            listener.onAnswerChanged(deliteNull(answerNumber.toString()));
+            listener.onAnswerChanged(deliteNull(String.valueOf(answer)));
         }
     }
 
     private String Calculating(String str) {
-        BigDecimal answer = BigDecimal.valueOf(0);
         ArrayList<String> list = new ArrayList<>(Arrays.asList(str.split(" ")));
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).equals("pi"))
                 list.set(i, String.valueOf(Math.PI));
             if (list.get(i).equals("e"))
                 list.set(i, String.valueOf(Math.E));
+
+            if (list.get(i).contains("^")) {
+                String[] arr = list.get(i).split("\\^");
+                list.set(i, ((new BigDecimal(arr[0])).pow(Integer.valueOf(arr[1]))).toString());
+            }
+
+            if (list.get(i).contains("div")) {
+                String[] arr = list.get(i).split("div");
+                int count = 0;
+                while (Double.parseDouble(arr[0])>=Double.parseDouble(arr[1])){
+                    arr[0] = String.valueOf(Double.parseDouble(arr[0]) - Double.parseDouble(arr[1]));
+                    count++;
+                }
+                String[] arr2 = list.get(i).split("div");
+                list.set(i, new BigDecimal(count).toString());
+            }
+
+            if (list.get(i).contains("mod")) {
+                String[] arr = list.get(i).split("mod");
+                int count = 0;
+                while (Double.parseDouble(arr[0])>=Double.parseDouble(arr[1])){
+                    arr[0] = String.valueOf(Double.parseDouble(arr[0]) - Double.parseDouble(arr[1]));
+                    count++;
+                }
+                String[] arr2 = list.get(i).split("mod");
+                list.set(i, new BigDecimal(arr2[0]).subtract(new BigDecimal(arr2[1]).multiply(new BigDecimal(count))).toString());
+            }
 
             try {
                 switch (list.get(i).substring(0, 3)) {
@@ -395,13 +419,19 @@ public class SecondNumBlockFragment extends Fragment implements View.OnClickList
             } catch (Exception e) {
             }
             try {
-                if (list.get(i).substring(list.get(i).length()-1).equals("!")) {
+                if (list.get(i).substring(list.get(i).length() - 1).equals("!")) {
                     BigDecimal pep = BigDecimal.valueOf(1);
-                    int pip = Integer.valueOf(list.get(i).substring(0, list.get(i).length()-1));
+                    int pip = Integer.valueOf(list.get(i).substring(0, list.get(i).length() - 1));
                     for (int j = 1; j <= pip; j++)
                         pep = pep.multiply(BigDecimal.valueOf(j));
                     list.set(i, String.valueOf(pep));
                 }
+            } catch (Exception e) {
+            }
+
+            try {
+                if (list.get(i).substring(0, 1).equals("√"))
+                    list.set(i, sqrt(BigDecimal.valueOf(Double.valueOf(list.get(i).substring(1)))).toString());
             } catch (Exception e) {
             }
 
