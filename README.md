@@ -11,7 +11,7 @@
 
 
 
-# **All versions**
+# **Previos versions**
 -----------------------------------
 <a href="url"><img src="https://user-images.githubusercontent.com/45872071/59721377-a5448380-923a-11e9-939d-d0f3575bab27.png" width="169" ></a>
 <a href="url"><img src="https://user-images.githubusercontent.com/45872071/59720971-9c9f7d80-9239-11e9-9946-45f8137f8414.jpg" width="169" ></a>
