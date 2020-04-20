@@ -1,4 +1,4 @@
-# <a href="url"><img src="https://user-images.githubusercontent.com/45872071/62431579-08826a80-b742-11e9-89ac-70cd3c691b0e.png.png" width="16"></a> **Calculator**
+# :closed_book: **Calculator**
 -----------------------------------
 
 <a href="url"><img src="https://user-images.githubusercontent.com/45872071/79772463-8c6c9900-8349-11ea-9f59-047c9e44ca02.jpg" width="128" ></a>
